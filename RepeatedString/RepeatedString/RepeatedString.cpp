@@ -1,5 +1,5 @@
 // RepeatedString.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// Refer to problem - 
+// Refer to problem - https://www.hackerrank.com/challenges/repeated-string/problem
 
 #include <iostream>
 #include <string>

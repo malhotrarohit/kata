@@ -1,3 +1,5 @@
+// Refer to problem - https://www.hackerrank.com/challenges/magic-spells/problem
+
 #include <iostream>
 #include <vector>
 #include <string>
