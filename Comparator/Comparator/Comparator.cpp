@@ -1,5 +1,5 @@
 // Comparator.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// Refer
+// Refer to the problem - https://www.hackerrank.com/challenges/ctci-comparator-sorting/problem
 
 #include <iostream>
 #include <cmath>
