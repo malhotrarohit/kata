@@ -1,6 +1,8 @@
 // CountingInversions.cpp : This file contains the 'main' function. Program execution begins and ends there.
 // Refer to problem - https://www.hackerrank.com/challenges/ctci-merge-sort/problem
 
+// This approach uses vector<int> and actually returns a sorted copy of the original vector along with number of inversions in the original
+
 #include <iostream>
 #include <algorithm>
 #include <string>
