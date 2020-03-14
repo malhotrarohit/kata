@@ -16,8 +16,11 @@ int sherlockAndAnagrams(string s) {
     {
         for (int j = i; j < s.length(); j++)
         {
+            // capture the substring
             string temp = s.substr(i, j - i + 1);
+            // in place sort using sort(), taking addresses of beginning and ending of the string
             sort(temp.begin(), temp.end());
+            // increment count in map
             map[temp]++;
         }
     }
@@ -27,6 +30,7 @@ int sherlockAndAnagrams(string s) {
 
     for (it = map.begin(); it != map.end(); it++)
     {
+        // calculate nC2 and add
         sum = sum + (it->second * ((it->second - 1.0) / 2.0));
     }
 
