@@ -13,16 +13,19 @@ int makeAnagram(string a, string b) {
     int sum = 0;
     int map[26] = { 0 };
 
+    // compute char frequency for first string
     for (const char& c : a)
     {
         map[c - 'a']++;
     }
 
+    // compute the absolute counts of characters that are either present in 'a' but not in 'b' or in 'b' but not in 'a'
     for (const char& c : b)
     {
         map[c - 'a']--;
     }
 
+    // the sum of such character frequencies is the # of deletions that need to be done to make 'a' and 'b' anagrams of each other
     for (const int& i : map)
     {
         int num = i > 0 ? i : i * -1; 
