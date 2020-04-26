@@ -36,7 +36,7 @@ string isValid(string input) {
     if (freqOfFrequency.front() == freqOfFrequency.back()) return "YES";
     // if we can remove one char & all remaining ones will have the same frequency, string is valid
     if (freqOfFrequency.front() == 1 && freqOfFrequency[1] == freqOfFrequency.back()) return "YES";
-    // if we can remove one occurence of a char and all remaining chars with have the same frequency, string is valid
+    // if we can remove one occurence of a char and all remaining chars will have the same frequency, string is valid
     while (counter < freqOfFrequency.size() - 1)
     {
         // if frequency diff b/w any two chars > 1, string is invalid
