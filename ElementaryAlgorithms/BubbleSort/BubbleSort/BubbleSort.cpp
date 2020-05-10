@@ -1,4 +1,4 @@
-// BubbleSort.cpp : Optimized for smaller runtimes on arrays that are partially sorted at the front
+// BubbleSort.cpp : Optimized for smaller runtimes on arrays that are partially sorted at the front or at the end
 //
 
 #include <iostream>
