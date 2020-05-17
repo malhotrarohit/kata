@@ -47,12 +47,11 @@ void BubbleUp(vector<int>& A, int ind)
 
 void Heapify(vector<int>& A, int ind)
 {
-	if (ind > 0 && ind < A.size()) 
+	if (ind >= 0 && ind < A.size()) 
 	{
 		int left = Left(ind);
 		int right = Right(ind);
 		int max = ind;
-
 
 		if (left < A.size() && A[max] < A[left])
 		{
@@ -69,6 +68,15 @@ void Heapify(vector<int>& A, int ind)
 			Heapify(A, max);
 		}
 	}
+}
+
+int PeekMax(vector<int>& A)
+{
+	if (A.size() > 0)
+	{
+		return A[0];
+	}
+	return INT32_MIN;;
 }
 
 int ExtractMax(vector<int>& A)
@@ -100,7 +108,11 @@ int main()
 {
 	vector<int> A{ 1, 4, 8, 3, 6, 7, 15, 10, 2, 9 };
 	BuildHeap(A);
-	ExtractMax(A);
-	Insert(A, 5);
-	ExtractMax(A);
+	cout << "(Peek) Max element in the heap is : " << PeekMax(A) << endl;
+	cout << "(Extract) Max element in the heap is : " << ExtractMax(A) << endl;
+	cout << "(Extract) Max element in the heap is : " << ExtractMax(A) << endl;
+	Insert(A, 20);
+	cout << "(Peek) Max element in the heap is : " << PeekMax(A) << endl;
+	cout << "(Extract) Max element in the heap is : " << ExtractMax(A) << endl;
+	cout << "(Extract) Max element in the heap is : " << ExtractMax(A) << endl;
 }
