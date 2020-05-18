@@ -1,4 +1,4 @@
-// Heap.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Heap.cpp : Implementation of a basic max-heap.
 //
 
 #include <iostream>
@@ -28,13 +28,14 @@ void Swap(int& a, int& b)
 	b = temp;
 }
 
+// "Bubbles up" an element at index ind to it's correct position in the heap
 void BubbleUp(vector<int>& A, int ind)
 {
 	if (ind > 0 && ind < A.size())
 	{
 		int parent = Parent(ind);
 
-		if (parent > 0)
+		if (parent >= 0)
 		{
 			if (A[parent] < A[ind])
 			{
@@ -45,6 +46,8 @@ void BubbleUp(vector<int>& A, int ind)
 	}
 }
 
+// Puts a root node in it's correct position in the heap
+// assuming it's left and right subtrees are already heaps
 void Heapify(vector<int>& A, int ind)
 {
 	if (ind >= 0 && ind < A.size()) 
@@ -70,6 +73,7 @@ void Heapify(vector<int>& A, int ind)
 	}
 }
 
+// Returns a copy of the element on top of the heap without actually removing it
 int PeekMax(vector<int>& A)
 {
 	if (A.size() > 0)
@@ -79,6 +83,8 @@ int PeekMax(vector<int>& A)
 	return INT32_MIN;;
 }
 
+// Removes the element on top of the heap, returns a copy of it
+// rebalances the heap after top extraction
 int ExtractMax(vector<int>& A)
 {
 	int result = A[0];
@@ -88,12 +94,14 @@ int ExtractMax(vector<int>& A)
 	return result;
 }
 
+// Inserts a number n into the heap
 void Insert(vector<int>& A, int n)
 {
 	A.push_back(n);
 	BubbleUp(A, A.size() - 1);
 }
 
+// Converts (builds) a vector to a heap
 void BuildHeap(vector<int>& A)
 {
 	int size = A.size();
