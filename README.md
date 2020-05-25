@@ -1,6 +1,6 @@
 # Kata
 
-This repo contains an assortment of code (written by me) to solve algorithmic problems.
+This repo contains an assortment of code (written by me) to solve algorithmic problems for fun.
 The code inside main() method in kata/Hackerrank/Hackerrank Interview Preparation Kit problems is boiler plate code from Hackerrank.
 
 https://en.wikipedia.org/wiki/Kata
