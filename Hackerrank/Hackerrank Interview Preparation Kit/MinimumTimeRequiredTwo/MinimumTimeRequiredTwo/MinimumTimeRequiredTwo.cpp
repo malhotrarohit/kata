@@ -33,7 +33,7 @@ unsigned long long minTime(vector<long> machines, long goal) {
     // yield = f(days), such that if day1 < day2 then f(day1) < f(day2)
     // hence the search space is sorted in the # of days
     // compute upper and lower bounds on the search space by assuming all machines are slowest and all machines are fastest respectively
-    // and perform binary search within those bounds to determine the min(day) such that goal = yield = f(day)
+    // and perform binary search within those bounds to determine the min(day) such that goal = yield = f(day) 
     unsigned long long minDays = ceil((goal / machines.size()) * fastestMachine);
     unsigned long long maxDays = ceil((goal / machines.size()) * slowestMachine);
     unsigned long long midDays = 0, yield = 0;
