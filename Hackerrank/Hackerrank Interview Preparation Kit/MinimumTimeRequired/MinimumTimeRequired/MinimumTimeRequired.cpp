@@ -1,3 +1,4 @@
+// Refer to problem at - https://www.hackerrank.com/challenges/minimum-time-required/problem
 #include <algorithm>
 #include <iostream>
 #include <string>
