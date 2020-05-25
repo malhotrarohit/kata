@@ -13,11 +13,13 @@ long minTime(vector<long> machines, long goal) {
 
     long minDays = LONG_MAX;
     long maxDays = LONG_MIN;
+    unordered_map<long, int> unique_machines;
 
     // build a hash map of # of days taken by any machine to the # of such machines
     // keep track of the slowest machine
     for (const long& machine : machines)
     {
+        unique_machines[machine]++;
         if (minDays > machine)
         {
             minDays = machine;
@@ -28,6 +30,7 @@ long minTime(vector<long> machines, long goal) {
         }
     }
 
+    unordered_map<long, int>::iterator it;
     long yield = 0;
     long days = 0;
 
@@ -40,9 +43,9 @@ long minTime(vector<long> machines, long goal) {
         days += maxDays;
 
         // calculate factory's total yield when 'days' # of days have passed
-        for (const long& machine: machines)
+        for (it = unique_machines.begin(); it != unique_machines.end(); it++)
         {
-            yield += (days / machine);
+            yield += (days / it->first) * it->second;
         }
 
     } while (yield < goal);
@@ -58,48 +61,21 @@ long minTime(vector<long> machines, long goal) {
     long prevDays = days - maxDays;
     long midDays = 0;
 
-    while (yield != goal && prevDays < days)
+    while (prevDays < days)
     {
         midDays = (prevDays + days) / 2;
 
         yield = 0;
-        for (const long& machine : machines)
+        for (it = unique_machines.begin(); it != unique_machines.end(); it++)
         {
-            yield += (midDays / machine);
+            yield += (midDays / it->first) * it->second;
         }
 
         if (yield > goal)
         {
             days = midDays - 1;
         }
-        else if(yield == goal)
-        {
-            days = midDays;
-            break;
-        }
-        else
-        {
-            prevDays = midDays + 1;
-        }
-    }
-
-    // we have found the exact # of days it takes to produce goal yield 
-    // but the # of days we have got may not be the minimum # of days it takes to produce goal yield
-    // conduct binary search b/w upper bound 'days' and possible min bound 'days - minDays' to find the true minimum
-
-    prevDays = days - minDays;
-
-    while (prevDays < days)
-    {
-        midDays = (prevDays + days) / 2;
-
-        yield = 0;
-        for (const long& machine : machines)
-        {
-            yield += (midDays / machine);
-        }
-
-        if (yield < goal)
+        else if (yield < goal)
         {
             prevDays = midDays + 1;
         }
