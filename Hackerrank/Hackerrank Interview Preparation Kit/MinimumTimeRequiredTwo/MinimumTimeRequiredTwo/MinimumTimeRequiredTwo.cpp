@@ -11,9 +11,55 @@ using namespace std;
 vector<string> split_string(string);
 
 // Complete the minTime function below.
-long minTime(vector<long> machines, long goal) {
+unsigned long long minTime(vector<long> machines, long goal) {
 
+    long fastestMachine = LONG_MAX;
+    long slowestMachine = LONG_MIN;
 
+    // find the slowest & fastest machine
+    for (const long& machine : machines)
+    {
+        if (fastestMachine > machine)
+        {
+            fastestMachine = machine;
+        }
+        if (slowestMachine < machine)
+        {
+            slowestMachine = machine;
+        }
+    }
+
+    // the search space for this problem can be described by the function 
+    // yield = f(days), such that if day1 < day2 then f(day1) < f(day2)
+    // hence the search space is sorted in the # of days
+    // compute upper and lower bounds on the search space by assuming all machines are slowest and all machines are fastest respectively
+    // and perform binary search within those bounds to determine the min(day) such that goal = yield = f(day)
+    unsigned long long minDays = ceil((goal / machines.size()) * fastestMachine);
+    unsigned long long maxDays = ceil((goal / machines.size()) * slowestMachine);
+    unsigned long long midDays = 0, yield = 0;
+
+    while (minDays < maxDays)
+    {
+        midDays = (minDays + maxDays) / 2;
+
+        yield = 0;
+        for (const long& machine : machines)
+        {
+            yield += (midDays / machine);
+            if (yield >= goal) break;
+        }
+
+        if (yield < goal)
+        {
+            minDays = midDays + 1;
+        }
+        else 
+        {
+            maxDays = midDays;
+        }
+    }
+
+    return maxDays;
 }
 
 int main()
@@ -40,7 +86,7 @@ int main()
         machines[i] = machines_item;
     }
 
-    long ans = minTime(machines, goal);
+    unsigned long long ans = minTime(machines, goal);
 
     cout << ans << "\n";
 
