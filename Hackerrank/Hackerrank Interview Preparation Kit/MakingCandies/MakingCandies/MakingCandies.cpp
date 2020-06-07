@@ -2,6 +2,7 @@
 //
 
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,63 +19,71 @@ long long safeMultiply(long long m, long long w)
     {
         return 0;
     }
-    else 
+    else
     {
         return x;
     }
 }
 
 // Complete the minimumPasses function below.
-long minimumPasses(long long m, long long w, long long p, long long n) {
+long long minimumPasses(long long m, long long w, long long p, long long n) {
 
-    long numPasses = 0;
+    long long numPasses = 0;
     long long candies = 0;
 
     while (candies < n)
     {
-        numPasses++;
-        // calculate candy output based on num of machines and worker available to us atm
         long long output = safeMultiply(m, w);
-        // if output has overflown the bounds of a 64 bit uint then we're done
-        if (output == 0)
-        {
-            return numPasses;
-        }
-        // update # of candies we have
-        candies += output;
-        if (candies >= n) return numPasses;
-        // else devote the candies we have to buying more machines/workers
-        // split them between buying machines and workers in such a way that maximizes the output in a single pass
-        else 
-        {
-            long long numResources = candies / p;
-            long long remCandies = candies % p;
+        if (output == 0 || output >= n) return numPasses + 1;
 
-            candies = remCandies;
-            
-            if (m > w && m - w >= numResources)
+        if (candies < p)
+        {
+            long long jump = min(ceil((double)(p - candies) / output), ceil((double)(n - candies) / output));
+            numPasses += jump;
+            candies += (output * jump);
+        }
+        else
+        {
+            numPasses++;
+            candies += output;
+        }
+
+        long long numResources = candies / p;
+        long long newCandies = candies % p;
+        long long newm = m, neww = w;
+
+        if (m > w && m - w >= numResources)
+        {
+            neww += numResources;
+        }
+        else if (w > m && w - m >= numResources)
+        {
+            newm += numResources;
+        }
+        else
+        {
+            long long split = (w + numResources - m) / 2;
+
+            if (m > w)
             {
-                w += numResources;
+                newm += split;
+                neww += numResources - split;
             }
-            else if (w > m && w - m >= numResources)
+            else
             {
-                m += numResources;
+                neww += split;
+                newm += numResources - split;
             }
-            else 
-            {
-                long long split = (w + numResources - m) / 2;
-                
-                if (m > w)
-                {
-                    m += split;
-                    w += numResources - split;
-                }
-                else
-                {
-                    w += split;
-                    m += numResources - split;
-                }
-            }
+        }
+
+        long long newOutput = safeMultiply(newm, neww);
+        if (newOutput == 0 || newOutput >= n) return numPasses + 1;
+
+        if (ceil((double)(n - newCandies) / newOutput) < ceil((double)(n - candies) / output))
+        {
+            candies = newCandies;
+            m = newm;
+            w = neww;
         }
     }
 
@@ -96,7 +105,7 @@ int main()
 
     long long n = stoll(mwpn[3]);
 
-    long result = minimumPasses(m, w, p, n);
+    long long result = minimumPasses(m, w, p, n);
 
     cout << result << "\n";
 
