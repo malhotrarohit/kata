@@ -25,6 +25,14 @@ long long safeMultiply(long long m, long long w)
     }
 }
 
+long long ceiling(long long a, long long b)
+{
+    long long rem = a % b;
+
+    if (rem > 0) return (a / b) + 1;
+    else return a / b;
+}
+
 // Complete the minimumPasses function below.
 long long minimumPasses(long long m, long long w, long long p, long long n) {
 
@@ -38,7 +46,7 @@ long long minimumPasses(long long m, long long w, long long p, long long n) {
 
         if (candies < p)
         {
-            long long jump = min(ceil((double)(p - candies) / output), ceil((double)(n - candies) / output));
+            long long jump = min(ceiling(p - candies, output), ceiling(n - candies, output));
             numPasses += jump;
             candies += (output * jump);
         }
@@ -47,6 +55,8 @@ long long minimumPasses(long long m, long long w, long long p, long long n) {
             numPasses++;
             candies += output;
         }
+
+        if (candies >= n) return numPasses;
 
         long long numResources = candies / p;
         long long newCandies = candies % p;
@@ -79,7 +89,7 @@ long long minimumPasses(long long m, long long w, long long p, long long n) {
         long long newOutput = safeMultiply(newm, neww);
         if (newOutput == 0 || newOutput >= n) return numPasses + 1;
 
-        if (ceil((double)(n - newCandies) / newOutput) < ceil((double)(n - candies) / output))
+        if (ceiling(n - newCandies, newOutput) <= ceiling(n - candies, output))
         {
             candies = newCandies;
             m = newm;
