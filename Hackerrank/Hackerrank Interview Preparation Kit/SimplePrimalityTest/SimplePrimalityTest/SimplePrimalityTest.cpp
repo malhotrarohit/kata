@@ -7,6 +7,7 @@ using namespace std;
 
 // Complete the primality function below.
 string primality(int n) {
+
     if (n == 1) return "Not prime";
     else if (n == 2 || n == 3) return "Prime";
     else if (n % 2 == 0) return "Not prime";
